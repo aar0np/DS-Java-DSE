@@ -12,6 +12,10 @@ import com.datastax.oss.driver.api.core.cql.Row;
 public class ProductDAL {
 
 	private CqlSession session;
+
+	private PreparedStatement productByIdPrepared;
+	private PreparedStatement vectorByIdPrepared;
+	private PreparedStatement vectorByVectorPrepared;
 	
 	public record Product(String productId,
 			String name, String productGroup,
@@ -26,11 +30,15 @@ public class ProductDAL {
 
 	public ProductDAL(CqlSession sess) {
 		this.session = sess;
+		
+		productByIdPrepared = session.prepare("SELECT * FROM product WHERE product_id = ?");
+		vectorByIdPrepared = session.prepare("SELECT * FROM product_vector ORDER BY product_vector ANN OF ? LIMIT 2;");
+		vectorByVectorPrepared = session.prepare("SELECT * FROM product_vector WHERE product_id = ?");
+		
 	}
 	
 	public Optional<Product> getProduct(String productId) {
-		PreparedStatement qpPrepared = session.prepare("SELECT * FROM product WHERE product_id = ?");
-		BoundStatement qpBound = qpPrepared.bind(productId);
+		BoundStatement qpBound = productByIdPrepared.bind(productId);
 		ResultSet rs = session.execute(qpBound);
 		Row pRow = rs.one();
 		
@@ -47,8 +55,7 @@ public class ProductDAL {
 	
 	public Optional<Promotion> getPromoProdByID(String productId) {
 		
-		PreparedStatement qpPrepared = session.prepare("SELECT * FROM product_vector WHERE product_id = ?");
-		BoundStatement qpBound = qpPrepared.bind(productId);
+		BoundStatement qpBound = vectorByIdPrepared.bind(productId);
 		ResultSet rs = session.execute(qpBound);
 		Row product = rs.one();
 		
@@ -65,8 +72,7 @@ public class ProductDAL {
 	
 	public Optional<Promotion> getPromoProdByVector(Promotion originalProduct) {
 		
-		PreparedStatement qvPrepared = session.prepare("SELECT * FROM product_vector ORDER BY product_vector ANN OF ? LIMIT 2;");
-		BoundStatement qvBound = qvPrepared.bind(originalProduct.vector());
+		BoundStatement qvBound = vectorByVectorPrepared.bind(originalProduct.vector());
 		ResultSet rsV = session.execute(qvBound);
 		List<Row> ann = rsV.all();
 		

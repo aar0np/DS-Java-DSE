@@ -12,7 +12,11 @@ import com.datastax.oss.driver.api.core.cql.Row;
 public class ProductDAL {
 
 	private CqlSession session;
-	
+
+	private PreparedStatement productByIdPrepared;
+	private PreparedStatement vectorByIdPrepared;
+	private PreparedStatement vectorByVectorPrepared;
+
 	public record Product(String productId,
 			String name, String productGroup,
 			String brand, String shortDesc,
