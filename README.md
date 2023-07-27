@@ -24,9 +24,6 @@ and select "us-east1" (Monck's Corner, South Carolina) as the region.  Click the
 Your new database should be spinning-up in the background, and you should see a pop-up with your
 default access token details.  Copy and/or download these details, as we will need the "token" property later on.
 
-Now, click on the database link, and select the "Connect" tab.  You should see a button that says "Get Bundle."
-Click on this button to download your database's secure connect bundle.
-
 ## 2. Create schema
 
 Once the database is available on the Astra dashboard, click on the database link, and select the "CQL Console" tab.
@@ -121,9 +118,21 @@ VALUES ('DSH916L','DataStax Black Hoodie',[1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 ## 4. GitPod
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/aar0np/DS-Java-DSE)
+[![Open in GitPod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/aar0np/DS-Java-DSE)
 
+Part of the GitPod image will be the Astra CLI tool.  You will be prompted to paste your token
+at a terminal prompt.
 
+You can now see your database with this command:
+
+```
+astra db list
+```
+
+Now, make note of your database name and download your Secure Connect Bundle:
+```
+astra db download-scb mydatabase
+```
 
 ###Edit .env file
 
@@ -132,6 +141,10 @@ Rename the `.env` file, and add your token (starts with "AstraCS:"):
 ```
 mv .env_example .env
 ```
+
+Open and edit the `.env` file.  Right click on your Secure Connect Bundle Zip file in the file explorer, and select the
+"Copy Path" option.  Paste the path to the `ASTRA_DB_SECURE_BUNDLE_PATH` entry in the `.env` file.  Also 
+paste in your Astra token to the `ASTRA_DB_APP_TOKEN` variable.  Leave `ASTRA_DB_CLIENT_ID` and `ASTRA_DB_KEYSPACE` set as-is.
 
 Then "source" in the .env file:
 
