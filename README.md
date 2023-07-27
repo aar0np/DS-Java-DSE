@@ -16,7 +16,7 @@
 ## 1. Sign up for a free Astra account
 
 Go to [astra.datastax.com](https://astra.datastax.com) and sign up for a new account.  You can select to use Single Sign On with either a GitHub or Google account.
-Click on the "Create a Database" button.
+Click on the "Create a Vector Database" button.
 
 Feel free to name your database whatever you like, but set the keyspace name to "bigbox."  Ensure that the "Provider" is set to "Google Cloud,"
 and select "us-east1" (Monck's Corner, South Carolina) as the region.  Click the "Create Database" button.
