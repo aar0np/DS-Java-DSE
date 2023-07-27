@@ -30,13 +30,19 @@ public class ProductDAL {
 	
 	public Optional<Product> getProduct(String productId) {
 
+        // SELECT * FROM product WHERE product_id = ?
+
 	}
 	
 	public Optional<Promotion> getPromoProdByID(String productId) {
+        
+        // SELECT * FROM product_vector WHERE product_id = ?
 
 	}
 	
 	public Optional<Promotion> getPromoProdByVector(Promotion originalProduct) {
+
+        // SELECT * FROM product_vector ORDER BY product_vector ANN OF ? LIMIT 2;
 
 	}
 }
