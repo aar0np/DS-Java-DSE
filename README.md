@@ -141,6 +141,8 @@ source .env
 
 ## 5. Code the DAL
 
+Look in the `src/main/java/com/datastax/products/` directory for the `ProductDAL.java`.
+Complete the empty methods.
 
 ## 6. Run
 

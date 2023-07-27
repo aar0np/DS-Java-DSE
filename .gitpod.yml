@@ -14,6 +14,8 @@ tasks:
     command: |
       gp open README.md
       unset JAVA_TOOL_OPTIONS
+      rm ~/src/main/java/com/datastax/products/ProductDAL.java
+      mv ~/src/main/java/com/datastax/products/ProductDAL_empty.java ~/src/main/java/com/datastax/products/ProductDAL.java
       source /home/gitpod/.astra/cli/astra-init.sh
       # astra setup
       . ~/.bashrc ; astra setup
